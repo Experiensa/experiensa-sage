@@ -66,6 +66,13 @@
         @php echo get_post_meta(get_the_ID(), 'exp_voyage_information_conditions', true); @endphp
         <br>
         <br>
+        @php
+        echo get_the_term_list( get_the_ID(), 'exp_included','<h3>Included</h3>','<br>','' );
+        @endphp
+        <br>
+        @php
+        echo get_the_term_list( get_the_ID(), 'exp_excluded','<h3>Excluded</h3>','<br>','' );
+        @endphp
         @if ($gallery)
           <div style="display:none;">
             @foreach ($gallery as $key => $value)
