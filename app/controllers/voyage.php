@@ -43,8 +43,8 @@ class Voyage extends Controller
 
   public static function media($id, $field, $title)
   {
-    if (get_post_meta(get_the_ID(),'exp_voyage_panorama_image', true)) {
-      $panorama_id = get_post_meta($id, 'exp_voyage_panorama_image', true);
+    if (get_post_meta(get_the_ID(),$field, true)) {
+      $panorama_id = get_post_meta($id, $field, true);
       return '<a class="btn btn-primary btn-sm" href="'.wp_get_attachment_url($panorama_id).'" target="_blank">'.$title.'</a>';
     } else {
       return '<a class="btn btn-primary btn-sm disabled" href="#" target="_blank">'.$title.'</a>';

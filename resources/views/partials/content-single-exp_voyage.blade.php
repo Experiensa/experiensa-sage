@@ -13,8 +13,19 @@
 
       @php
       $flyer =  get_post_meta(get_the_ID(), 'exp_voyage_flyer', true);
+      $panorama = get_post_meta(get_the_ID(), 'exp_voyage_panorama_image', true);
+      $portrait = get_post_meta(get_the_ID(), 'exp_voyage_portrait_image', true);
       @endphp
-      <a href="{{ wp_get_attachment_url( $flyer ) }}" class="btn btn-sm btn-light" target="_blank">Flyer</a>
+      @if (get_post_meta(get_the_ID(), 'exp_voyage_flyer', true))
+        <a href="{{ wp_get_attachment_url( $flyer ) }}" class="btn btn-sm btn-light" target="_blank">Flyer</a>
+      @endif
+      @if (get_post_meta(get_the_ID(), 'exp_voyage_panorama_image', true))
+        <a href="{{ wp_get_attachment_url( $panorama ) }}" class="btn btn-sm btn-light" target="_blank">Panorama</a>
+      @endif
+      @if (get_post_meta(get_the_ID(), 'exp_voyage_portrait_image', true))
+        <a href="{{ wp_get_attachment_url( $portrait ) }}" class="btn btn-sm btn-light" target="_blank">Protrait</a>
+      @endif
+
       <br>
       <br>
       <table class="table">
@@ -56,6 +67,9 @@
           <td>@php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp </td>
         </tr>
       </table>
+      @if (get_post_meta(get_the_ID(), 'exp_voyage_original_source', true))
+        <a href="{{ get_post_meta(get_the_ID(), 'exp_voyage_original_source', true) }}" class="btn btn-primary" target="_blank">Source</a>
+      @endif
     </div>
     <div class="col-12 col-sm-8 col-md-8 col-lg-8">
       <div class="entry-content">

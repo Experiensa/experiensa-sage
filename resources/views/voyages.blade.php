@@ -9,7 +9,7 @@ Template Name: Voyages
     {{-- @include('partials.page-header') --}}
     {{-- @include('partials.content-page') --}}
     @php $voyages = Voyage::list(); @endphp
-
+    <br>
     @if ( $voyages->have_posts() )
       <div class="row">
         @while ( $voyages->have_posts() )
@@ -45,10 +45,32 @@ Template Name: Voyages
                   <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
                 </li>
                 <li class="list-group-item">
-                  <b>Start date:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_start_date',true) }}
+                  @php
+                  $start_date = get_post_meta(get_the_ID(),'exp_voyage_start_date',true);
+                  $formatted_start_date = date("d-m-Y", strtotime($start_date));
+                  @endphp
+                  @if (get_post_meta(get_the_ID(),'exp_voyage_start_date',true))
+                    <b>Start date:</b> {{ $formatted_start_date }}
+                  @else
+                    <b>Start date:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_start_date',true) }}
+                  @endif
+
                 </li>
                 <li class="list-group-item">
-                  <b>End date:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_end_date',true) }}
+                  @php
+                  $end_date = get_post_meta(get_the_ID(),'exp_voyage_end_date',true);
+                  $today = date("Y-m-d");
+                  $formatted_end_date = date("d-m-Y", strtotime($end_date));
+                  @endphp
+                  @if (get_post_meta(get_the_ID(),'exp_voyage_end_date',true))
+                    @if ($today >= $end_date)
+                      <b>End date:</b> {{ $formatted_end_date }} <span class="badge badge-danger">Expired</span>
+                    @else
+                      <b>End date:</b> {{ $formatted_end_date }}
+                    @endif
+                  @else
+                    <b>End date:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_end_date',true) }}
+                  @endif
                 </li>
                 <li class="list-group-item">
                   <b>Duration:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_number_days',true) }} Days / {{ get_post_meta(get_the_ID(),'exp_voyage_number_nights',true) }} Nights

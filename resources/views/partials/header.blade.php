@@ -5,11 +5,11 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{ home_url('/') }}wp-admin" target="_blank">Login</a>
       </li>
-    </ul>
-    {{-- <nav class="nav-primary">
-      @if (has_nav_menu('primary_navigation'))
-        {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']) !!}
+      @if (is_user_logged_in())
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ home_url('/') }}/wp-json/experiensa-rest-api/v1/voyages?per_page=200" target="_blank">Rest API</a>
+        </li>
       @endif
-    </nav> --}}
+    </ul>
   </div>
 </header>
