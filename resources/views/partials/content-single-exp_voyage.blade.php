@@ -11,7 +11,6 @@
         </a>
       @endif
 
-
       @php
       $flyer =  get_post_meta(get_the_ID(), 'exp_voyage_flyer', true);
       @endphp
@@ -23,6 +22,9 @@
           <td>Price</td><td>{{ Voyage::price($id) }}</td>
         </tr>
         <tr>
+          <td>Discount</td><td>{{ get_post_meta($id,'exp_voyage_discount',true) }}</td>
+        </tr>
+        <tr>
           <td>Duration</td><td>{{ Voyage::duration($id) }}</td>
         </tr>
         <tr>
@@ -32,24 +34,26 @@
           <td>End Date</td><td>{{ get_post_meta(get_the_ID(), 'exp_voyage_end_date', true) }}</td>
         </tr>
         <tr>
+          <td>Region</td>
+          <td>@php echo get_the_term_list( get_the_ID(), 'exp_region','',', ','' ); @endphp </td>
+        </tr>
+        <tr>
           <td>Country</td>
           <td>
             @php echo get_the_term_list( get_the_ID(), 'exp_country','',', ','' ); @endphp
           </td>
         </tr>
         <tr>
-          <td>World Region</td>
-          <td>
-            @php echo get_the_term_list( get_the_ID(), 'exp_region','',', ','' ); @endphp
-          </td>
+          <td>Themes</td>
+          <td>@php echo get_the_term_list( get_the_ID(), 'exp_theme','',', ','' ); @endphp</td>
         </tr>
         <tr>
-          <td>Themes</td>
-          <td>
-            @php
-            echo get_the_term_list( get_the_ID(), 'exp_theme','',', ','' );
-            @endphp
-          </td>
+          <td>Categories</td>
+          <td>@php echo get_the_term_list( get_the_ID(), 'category','',', ','' ); @endphp </td>
+        </tr>
+        <tr>
+          <td>Tags</td>
+          <td>@php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp </td>
         </tr>
       </table>
     </div>
@@ -73,6 +77,8 @@
         @php
         echo get_the_term_list( get_the_ID(), 'exp_excluded','<h3>Excluded</h3>','<br>','' );
         @endphp
+        <br>
+        <br>
         @if ($gallery)
           <div style="display:none;">
             @foreach ($gallery as $key => $value)
