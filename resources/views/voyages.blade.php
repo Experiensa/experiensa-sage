@@ -10,6 +10,7 @@ Template Name: Voyages
     {{-- @include('partials.content-page') --}}
     @php $voyages = Voyage::list(); @endphp
     <br>
+    <h3 class="text-muted">Number of offers: {{$voyages->post_count }}</h3>
     @if ( $voyages->have_posts() )
       <div class="row">
         @while ( $voyages->have_posts() )
@@ -54,7 +55,6 @@ Template Name: Voyages
                   @else
                     <b>Start date:</b> {{ get_post_meta(get_the_ID(),'exp_voyage_start_date',true) }}
                   @endif
-
                 </li>
                 <li class="list-group-item">
                   @php
