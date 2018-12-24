@@ -72,10 +72,18 @@ Template Name: Voyages
                   <b>Categories:</b> @php echo get_the_term_list( $id, 'category','',', ','' );@endphp
                 </li>
                 <li class="list-group-item">
-                  @php
-                  echo Voyage::display_terms('post_tag', get_the_ID(), 3);
-                  @endphp
-                  <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
+                  @php $tags = get_the_tags(); @endphp
+                  @if ($tags)
+                    @if ( count($tags) > 3)
+                      <i class="fas fa-check-circle" style="color:green"></i>
+                      <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
+                    @endif
+                  @else
+                    <i class="fas fa-times-circle" style="color:red"></i>
+                    <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
+                    (There should be minimum 4 tags)
+                  @endif
+
                 </li>
                 <li class="list-group-item">
                   @php
