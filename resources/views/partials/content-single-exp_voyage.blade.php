@@ -42,7 +42,15 @@
         <tr>
           @php $cover_image = Voyage::validate_cover_image($id) @endphp
           <td class="b">@php echo Voyage::display_icon($cover_image[0]) @endphp Cover img</td>
-          <td>{!!$cover_image[1]!!}</td>
+          <td>
+            @if ($cover_image[0] == 'red')
+              <ul class="pa0">
+                {!!$cover_image[1]!!}
+              </ul>
+            @else
+              {!!$cover_image[1]!!}
+            @endif
+          </td>
         </tr>
         <tr>
           @php

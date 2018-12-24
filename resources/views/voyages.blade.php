@@ -24,25 +24,13 @@ Template Name: Voyages
                 $img = wp_get_attachment_image_src($post_thumbnail_id, 'full');
                 $filesize = filesize( get_attached_file( $post_thumbnail_id ) );
                 @endphp
-                @if ( $filesize > 200000)
-                  <p class="card-text"><i class="fas fa-times-circle" style="color:red"></i> filesize is {{ $filesize }} it should be less than 200kb</p>
-                @endif
-                @if (($img[1] < 1919) || ($img[1] > 1921))
-                  <table>
-                    <tr>
-                      <td valign="top"><i class="fas fa-times-circle" style="color:red"></i></td>
-                      <td>Cover image width: {{ $img[1] }}. (It should be 1920) </td>
-                    </tr>
-                  </table>
-                @endif
-                @if ($img[2] < 1079 || $img[2] > 1081)
-                  <table>
-                    <tr>
-                      <td valign="top"><i class="fas fa-times-circle" style="color:red"></i></td>
-                      <td>Cover image height: {{ $img[2] }}. It should be 1080</td>
-                    </tr>
-                  </table>
-                @endif
+
+                @php $cover_image = Voyage::validate_cover_image($id) @endphp
+                <h4>@php echo Voyage::display_icon($cover_image[0]) @endphp Cover image</h4>
+                <ul>
+                  {!!$cover_image[1]!!}
+                </ul>
+
               </div>
               <div class="card-body">
                 <h5 class="card-title">@php the_title() @endphp</h5>
@@ -84,14 +72,10 @@ Template Name: Voyages
                   <b>Categories:</b> @php echo get_the_term_list( $id, 'category','',', ','' );@endphp
                 </li>
                 <li class="list-group-item">
-                  @php $tags = get_the_tags(); @endphp
-                  @if ( count($tags) > 3)
-                    <i class="fas fa-check-circle" style="color:green"></i>
-                    <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
-                  @else
-                    <i class="fas fa-times-circle" style="color:red"></i>
-                    <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
-                  @endif
+                  @php
+                  echo Voyage::display_terms('post_tag', get_the_ID(), 3);
+                  @endphp
+                  <b>Tags:</b> @php echo get_the_term_list( get_the_ID(), 'post_tag','',', ','' ); @endphp
                 </li>
                 <li class="list-group-item">
                   @php
