@@ -9,6 +9,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="{{ home_url('/') }}wp-json/experiensa-rest-api/v1/voyages?per_page=200" target="_blank">Rest API</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ home_url('/report') }}" target="_blank">Report</a>
+        </li>
       @endif
     </ul>
   </div>
